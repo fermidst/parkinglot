@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="ParkingLot.Views.ConverterControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:ParkingLot.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:TicketsPresenter}">
+
+    <FrameworkElement.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="5,5,5,0" />
+        </Style>
+    </FrameworkElement.Resources>
+
+    <StackPanel>
+
+        <Label Content="History"
+               Target="{Binding ElementName=History}" />
+        <DataGrid Name="History"
+                 ItemsSource="{Binding History}"
+                 AutoGenerateColumns="False"
+                 MinWidth="300"
+                 Height="200"
+                 Margin="5">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="RegistrationNumber" Binding="{Binding RegistrationNumber}"/>
+                <DataGridTextColumn Header="ArrivalDate" Binding="{Binding ArrivalDate}"/>
+                <DataGridTextColumn Header="DepartureDate" Binding="{Binding DepartureDate}"/>
+                <DataGridTextColumn Header="LocationId" Binding="{Binding LocationId}"/>
+                <DataGridTextColumn Header="RateId" Binding="{Binding RateId}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Load"
+                Command="{Binding ShowTicketsCommand}"
+                IsDefault="True"
+                Margin="5" />
+        <Button Content="Add"
+                Command="{Binding AddTicketCommand}"
+                IsDefault="True"
+                Margin="5" />
+
+    </StackPanel>
+
+</UserControl>
