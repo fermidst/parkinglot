@@ -6,15 +6,15 @@ namespace ParkingLot.Models
     {
         public long Id { get; protected set; }
 
-        public string RegistrationNumber { get; protected set; }
+        public string RegistrationNumber { get; set; }
 
-        public DateTime ArrivalDate { get; protected set; }
+        public DateTime ArrivalDate { get; set; }
 
-        public DateTime DepartureDate { get; protected set; }
+        public DateTime DepartureDate { get; set; }
 
-        public long LocationId { get; protected set; }
+        public long LocationId { get; set; }
 
-        public long RateId { get; protected set; }
+        public long RateId { get; set; }
 
         public virtual Car Car { get; protected set; }
 
@@ -24,7 +24,6 @@ namespace ParkingLot.Models
 
         protected Ticket()
         {
-
         }
 
         public Ticket(string registrationNumber, long locationId, long rateId)
