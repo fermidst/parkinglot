@@ -6,18 +6,16 @@ namespace ParkingLot.ViewModels.MVVM
 {
     public abstract class Presenter : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void Update<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        protected void Update<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
-            if (!EqualityComparer<T>.Default.Equals(field, value))
-            {
-                field = value;
-                RaisePropertyChangedEvent(propertyName);
-            }
+            if (EqualityComparer<T>.Default.Equals(field, value)) return;
+            field = value;
+            RaisePropertyChangedEvent(propertyName);
         }
 
-        protected void RaisePropertyChangedEvent([CallerMemberName] string propertyName = null)
+        protected void RaisePropertyChangedEvent([CallerMemberName] string? propertyName = null)
         {
             var handler = PropertyChanged;
             handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
