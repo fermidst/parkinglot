@@ -8,7 +8,7 @@
         SizeToContent="WidthAndHeight">
 
     <Window.DataContext>
-        <viewModels:TicketsPresenter />
+        <viewModels:AdminPanelPresenter />
     </Window.DataContext>
 
     <views:ConverterControl />
