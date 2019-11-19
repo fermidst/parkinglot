@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:ParkingLot.ViewModels"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance viewModels:TicketsPresenter}">
+             d:DataContext="{d:DesignInstance viewModels:AdminPanelPresenter}">
 
     <FrameworkElement.Resources>
         <Style TargetType="Label">
@@ -15,10 +15,10 @@
 
     <StackPanel>
 
-        <Label Content="History"
-               Target="{Binding ElementName=History}" />
-        <DataGrid Name="History"
-                 ItemsSource="{Binding History}"
+        <Label Content="Tickets"
+               Target="{Binding ElementName=TicketsGrid}" />
+        <DataGrid x:Name="TicketsGrid"
+                 ItemsSource="{Binding Tickets}"
                  AutoGenerateColumns="False"
                  MinWidth="300"
                  Height="200"
