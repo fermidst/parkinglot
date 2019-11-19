@@ -18,5 +18,11 @@ namespace ParkingLot.Models
         {
 
         }
+
+        public Owner(string name, string phone)
+        {
+            Name = name;
+            Phone = phone;
+        }
     }
 }

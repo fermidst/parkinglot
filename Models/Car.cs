@@ -22,5 +22,13 @@ namespace ParkingLot.Models
         {
 
         }
+
+        public Car(string registrationNumber, long ownerId, string vehicleBrand, string color)
+        {
+            RegistrationNumber = registrationNumber;
+            OwnerId = ownerId;
+            VehicleBrand = vehicleBrand;
+            Color = color;
+        }
     }
 }

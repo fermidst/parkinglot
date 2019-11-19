@@ -27,11 +27,10 @@ namespace ParkingLot.Models
 
         }
 
-        public Ticket(string registrationNumber, DateTime departureDate, long locationId, long rateId)
+        public Ticket(string registrationNumber, long locationId, long rateId)
         {
             RegistrationNumber = registrationNumber;
             ArrivalDate = DateTime.Now;
-            DepartureDate = departureDate;
             LocationId = locationId;
             RateId = rateId;
         }

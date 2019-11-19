@@ -18,5 +18,11 @@ namespace ParkingLot.Models
         {
 
         }
+
+        public Rate(string type, decimal cost)
+        {
+            Type = type;
+            Cost = cost;
+        }
     }
 }
