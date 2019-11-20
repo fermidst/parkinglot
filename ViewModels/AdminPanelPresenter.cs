@@ -11,7 +11,8 @@ namespace ParkingLot.ViewModels
     public class AdminPanelPresenter : Presenter
     {
         private readonly AppDbContext _context = new AppDbContext();
-        private string _inputField = string.Empty;
+        private string _rateType = string.Empty;
+        private decimal _rateCost;
 
         public ObservableCollection<Ticket> Tickets { get; } = new ObservableCollection<Ticket>();
 
@@ -23,20 +24,17 @@ namespace ParkingLot.ViewModels
         
         public ObservableCollection<Car> Cars { get; } = new ObservableCollection<Car>();
 
-        public string InputField
+        public string RateType
         {
-            get => _inputField;
-            set => Update(ref _inputField, value);
+            get => _rateType;
+            set => Update(ref _rateType, value);
         }
 
-        public ICommand ShowTicketsCommand => new Command(_ =>
+        public decimal RateCost
         {
-            var tickets = _context.Tickets.ToList();
-            foreach (var ticket in tickets)
-            {
-                Tickets.Add(ticket);
-            }
-        });
+            get => _rateCost;
+            set => Update(ref _rateCost, value);
+        }
 
         public ICommand AddLocationCommand => new Command(_ =>
         {
@@ -56,9 +54,7 @@ namespace ParkingLot.ViewModels
 
         public ICommand AddRateCommand => new Command(_ =>
         {
-            var type = "test";
-            var cost = 10101;
-            _context.Rates.Add(new Rate(type, cost));
+            _context.Rates.Add(new Rate(RateType, RateCost));
             _context.SaveChanges();
         });
 
@@ -109,5 +105,23 @@ namespace ParkingLot.ViewModels
             }
         });
 
+        public ICommand ShowTicketsCommand => new Command(_ =>
+        {
+            var tickets = _context.Tickets.ToList();
+            Tickets.Clear();
+            foreach (var ticket in tickets)
+            {
+                Tickets.Add(ticket);
+            }
+        });
+
+        public ICommand ShowAllCommand => new Command(_ =>
+        {
+            ShowLocationsCommand.Execute(_);
+            ShowRatesCommand.Execute(_);
+            ShowOwnersCommand.Execute(_);
+            ShowCarsCommand.Execute(_);
+            ShowTicketsCommand.Execute(_);
+        });
     }
 }
