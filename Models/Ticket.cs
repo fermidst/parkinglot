@@ -30,6 +30,7 @@ namespace ParkingLot.Models
         {
             RegistrationNumber = registrationNumber;
             ArrivalDate = DateTime.Now;
+            DepartureDate = DateTime.MinValue;
             LocationId = locationId;
             RateId = rateId;
         }
