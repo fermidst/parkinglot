@@ -16,7 +16,7 @@ namespace ParkingLot.ViewModels
         private long _locationId;
         private long _rateId;
         private decimal _price;
-        private Ticket _selectedTicket = null!;
+        private Ticket? _selectedTicket;
 
         public ObservableCollection<Ticket> Tickets { get; } = new ObservableCollection<Ticket>();
 
@@ -54,7 +54,7 @@ namespace ParkingLot.ViewModels
             set => Update(ref _price, value);
         }
 
-        public Ticket SelectedTicket
+        public Ticket? SelectedTicket
         {
             get => _selectedTicket;
             set => Update(ref _selectedTicket, value);
@@ -74,8 +74,10 @@ namespace ParkingLot.ViewModels
             //{
             //    Tickets.Add(ticket);
             //}
+            if (SelectedTicket == null) return;
             SelectedTicket.DepartureDate = DateTime.Now;
-            Price = (decimal) (SelectedTicket.DepartureDate - SelectedTicket.ArrivalDate).TotalHours * SelectedTicket.Rate.Cost;
+            Price = (decimal) (SelectedTicket.DepartureDate - SelectedTicket.ArrivalDate).TotalHours *
+                    SelectedTicket.Rate.Cost;
             _context.Tickets.Update(SelectedTicket);
             _context.SaveChanges();
         });
