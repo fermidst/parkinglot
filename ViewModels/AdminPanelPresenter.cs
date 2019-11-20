@@ -1,7 +1,6 @@
 ﻿using ParkingLot.Context;
 using ParkingLot.Models;
 using ParkingLot.ViewModels.MVVM;
-
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -26,9 +25,9 @@ namespace ParkingLot.ViewModels
         public ObservableCollection<Location> Locations { get; } = new ObservableCollection<Location>();
 
         public ObservableCollection<Rate> Rates { get; } = new ObservableCollection<Rate>();
-        
+
         public ObservableCollection<Owner> Owners { get; } = new ObservableCollection<Owner>();
-        
+
         public ObservableCollection<Car> Cars { get; } = new ObservableCollection<Car>();
 
         public string RateType
