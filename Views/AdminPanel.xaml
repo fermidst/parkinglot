@@ -15,25 +15,51 @@
 
         <Label Content="Места" Height="30" VerticalAlignment="Top" Width="100"
                Margin="30,20,870,0" />
-        <DataGrid Margin="30,50,890,534" Height="200" ItemsSource="{Binding Locations}" />
+        <DataGrid Margin="30,50,890,534" Height="200" ItemsSource="{Binding Locations}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Button Content="Обновить" Height="22" Margin="70,24,890,0" VerticalAlignment="Top" Command="{Binding ShowLocationsCommand}" />
         <Button Content="Добавить" Height="22" Margin="30,272,890,0" VerticalAlignment="Top" Command="{Binding AddLocationCommand}" />
 
         <Label Content="Тарифы" Height="30" VerticalAlignment="Top" Width="100"
                Margin="175,20,725,0" />
-        <DataGrid Margin="175,50,685,534" Width="140" Height="200" ItemsSource="{Binding Rates}" />
+        <DataGrid Margin="175,50,685,534" Width="140" Height="200" ItemsSource="{Binding Rates}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
+                <DataGridTextColumn Header="Cost" Binding="{Binding Cost}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Button Content="Обновить" Height="22" Margin="235,23,685,0" VerticalAlignment="Top" Command="{Binding ShowRatesCommand}" />
         <Button Content="Добавить" Height="22" Margin="235,359,685,0" VerticalAlignment="Top" Command="{Binding AddRateCommand}" />
 
         <Label Content="Владельцы" Height="30" VerticalAlignment="Top" Width="100"
                Margin="365,20,535,0" />
-        <DataGrid Margin="365,50,435,534" Width="200" Height="200" ItemsSource="{Binding Owners}" />
+        <DataGrid Margin="365,50,435,534" Width="200" Height="200" ItemsSource="{Binding Owners}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Button Content="Обновить" Height="22" Margin="483,23,435,0" VerticalAlignment="Top" Command="{Binding ShowOwnersCommand}" />
         <Button Content="Добавить" Height="22" Margin="485,359,435,0" VerticalAlignment="Top" Command="{Binding AddOwnerCommand}" />
 
         <Label Content="Автомобили" Height="30" VerticalAlignment="Top" Width="100"
                Margin="617,20,283,0" />
-        <DataGrid Margin="617,50,30,534" Height="200" ItemsSource="{Binding Cars}" />
+        <DataGrid Margin="617,50,30,534" Height="200" ItemsSource="{Binding Cars}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="RegistrationNumber" Binding="{Binding RegistrationNumber}"/>
+                <DataGridTextColumn Header="OwnerId" Binding="{Binding OwnerId}"/>
+                <DataGridTextColumn Header="VehicleBrand" Binding="{Binding VehicleBrand}"/>
+                <DataGridTextColumn Header="Color" Binding="{Binding Color}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Button Content="Обновить" Height="22" Margin="890,23,30,0" VerticalAlignment="Top" Command="{Binding ShowCarsCommand}" />
 
 
@@ -41,38 +67,49 @@
                 Width="100" Command="{Binding ShowTicketsCommand}" />
         <Label Content="Чеки" Height="30" VerticalAlignment="Top" Width="100"
                Margin="30,469,870,0" />
-        <DataGrid Margin="30,499,30,55" ItemsSource="{Binding Tickets}" />
+        <DataGrid Margin="30,499,30,55" ItemsSource="{Binding Tickets}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="RegistrationNumber" Binding="{Binding RegistrationNumber}"/>
+                <DataGridTextColumn Header="ArrivalDate" Binding="{Binding ArrivalDate}"/>
+                <DataGridTextColumn Header="DepartureDate" Binding="{Binding DepartureDate}"/>
+                <DataGridTextColumn Header="LocationId" Binding="{Binding LocationId}"/>
+                <DataGridTextColumn Header="RateId" Binding="{Binding RateId}"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
         <Button Content="Обновить все" Height="22" Margin="30,442,890,0" VerticalAlignment="Top" Command="{Binding ShowAllCommand}" />
 
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="210,272,0,0" Text="{Binding Path=RateType}" TextWrapping="Wrap" VerticalAlignment="Top" Width="105"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="210,317,0,0" Text="{Binding Path=RateCost}" TextWrapping="Wrap" VerticalAlignment="Top" Width="105"/>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="210,272,0,0" Text="{Binding RateType}" TextWrapping="Wrap" VerticalAlignment="Top" Width="105"/>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="210,317,0,0" Text="{Binding RateCost}" TextWrapping="Wrap" VerticalAlignment="Top" Width="105"/>
 
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="415,272,0,0" Text="Имя владельца" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="415,317,0,0" Text="Номер телефона владельца" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="415,272,0,0" Text="{Binding OwnerName}" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="415,317,0,0" Text="{Binding OwnerPhone}" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
 
 
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="794,272,0,0" Text="Регистрационный номер" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
-        <ComboBox HorizontalAlignment="Left" Height="22" Margin="725,311,0,0" VerticalAlignment="Top" Width="245"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="794,359,0,0" Text="Марка автомобиля" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="794,404,0,0" Text="Цвет автомобиля" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
-        
-        <Label Content="Название:" Height="30" VerticalAlignment="Top" Width="100"
-            Margin="125,268,775,0" />
-        <Label Content="Стоимость:" Height="30" VerticalAlignment="Top" Width="100"
-            Margin="125,313,775,0" />
-        <Label Content="Имя:" Height="30" VerticalAlignment="Top" Width="100"
-            Margin="341,268,559,0" />
-        <Label Content="Телефон:" Height="30" VerticalAlignment="Top" Width="100"
-            Margin="341,313,559,0" />
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="794,272,0,0" Text="{Binding CarRegistrationNumber}" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="794,317,0,0" Text="{Binding CarOwnerId}" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="794,359,0,0" Text="{Binding CarVehicleBrand}" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="794,404,0,0" Text="{Binding CarColor}" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
+        <Button Content="Добавить" Height="22" Margin="890,442,30,0" VerticalAlignment="Top" Command="{Binding AddCarCommand}" />
+
+        <Label Content="Название:" Height="30" VerticalAlignment="Top"
+            Margin="125,268,795,0" />
+        <Label Content="Стоимость:" Height="30" VerticalAlignment="Top"
+            Margin="125,313,795,0" />
+        <Label Content="Имя:" Height="30" VerticalAlignment="Top"
+            Margin="341,268,590,0" />
+        <Label Content="Телефон:" Height="30" VerticalAlignment="Top"
+            Margin="341,313,590,0" />
         <Label Content="Регистрационный номер:" Height="30" VerticalAlignment="Top"
-            Margin="617,268,227,0" />
+            Margin="617,268,211,0" />
         <Label Content="Владелец:" Height="30" VerticalAlignment="Top"
-            Margin="617,307,227,0" />
+            Margin="617,313,280,0" />
         <Label Content="Марка авто:" Height="30" VerticalAlignment="Top"
-            Margin="617,355,227,0" />
+            Margin="617,355,211,0" />
         <Label Content="Цвет авто:" Height="30" VerticalAlignment="Top"
-            Margin="617,400,227,0" />
+            Margin="617,400,211,0" />
 
     </Grid>
 </Window>
