@@ -34,5 +34,16 @@ namespace ParkingLot.Models
             LocationId = locationId;
             RateId = rateId;
         }
+
+        public Ticket(string id, string registrationNumber, string arrivalDate, string departureDate, string locationId,
+            string rateId)
+        {
+            Id = Convert.ToInt64(id);
+            RegistrationNumber = registrationNumber;
+            ArrivalDate = Convert.ToDateTime(arrivalDate);
+            DepartureDate = Convert.ToDateTime(departureDate);
+            LocationId = Convert.ToInt64(locationId);
+            RateId = Convert.ToInt64(rateId);
+        }
     }
 }

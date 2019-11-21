@@ -3,8 +3,11 @@ using ParkingLot.Models;
 using ParkingLot.ViewModels.MVVM;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Input;
+using Microsoft.Win32;
 
 namespace ParkingLot.ViewModels
 {
@@ -182,5 +185,43 @@ namespace ParkingLot.ViewModels
                 // ignored
             }
         }
+
+        public ICommand ImportCommand => new Command(_ =>
+        {
+            var dialog = new OpenFileDialog { Filter = "Text file (*.txt)|*.txt", InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)};
+
+            if (dialog.ShowDialog() != true) return;
+            var list = File.ReadAllLines(dialog.FileName).ToList();
+            Tickets.Clear();
+            foreach (var strings in list.Select(entry => entry.Split(",")))
+            {
+                Tickets.Add(new Ticket(strings[0], strings[1], strings[2], strings[3], strings[4], strings[5]));
+            }
+        });
+
+        public ICommand ExportCommand => new Command(_ =>
+        {
+            var dialog = new SaveFileDialog { Filter = "Text file (*.txt)|*.txt", InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) };
+            var builder = new StringBuilder();
+            foreach (var ticket in Tickets)
+            {
+                builder.Append(ticket.Id);
+                builder.Append(",");
+                builder.Append(ticket.RegistrationNumber);
+                builder.Append(",");
+                builder.Append(ticket.ArrivalDate);
+                builder.Append(",");
+                builder.Append(ticket.DepartureDate);
+                builder.Append(",");
+                builder.Append(ticket.LocationId);
+                builder.Append(",");
+                builder.Append(ticket.RateId);
+                builder.AppendLine();
+            }
+            if (dialog.ShowDialog() == true)
+            {
+                File.WriteAllText(dialog.FileName, builder.ToString());
+            }
+        });
     }
 }
