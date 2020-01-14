@@ -22,6 +22,7 @@ namespace ParkingLot.ViewModels
         private long _carOwnerId;
         private string _carVehicleBrand = null!;
         private string _carColor = null!;
+        private Owner _selectedOwner;
 
         public ObservableCollection<Ticket> Tickets { get; } = new ObservableCollection<Ticket>();
 
@@ -81,11 +82,17 @@ namespace ParkingLot.ViewModels
             set => Update(ref _carColor, value);
         }
 
+        public Owner SelectedOwner
+        {
+            get => _selectedOwner;
+            set => Update(ref _selectedOwner, value);
+        }
+
         public ICommand AddLocationCommand => new Command(_ =>
         {
             _context.Locations.Add(new Location());
             _context.SaveChanges();
-            ShowLocationsCommand.Execute(_);
+            ShowAllCommand.Execute(_);
         });
 
         public ICommand ShowLocationsCommand => new Command(_ =>
@@ -102,7 +109,7 @@ namespace ParkingLot.ViewModels
         {
             _context.Rates.Add(new Rate(RateType, RateCost));
             _context.SaveChanges();
-            ShowRatesCommand.Execute(_);
+            ShowAllCommand.Execute(_);
         });
 
         public ICommand ShowRatesCommand => new Command(_ =>
@@ -122,7 +129,7 @@ namespace ParkingLot.ViewModels
                 _context.Owners.Add(new Owner(OwnerName, OwnerPhone));
                 _context.SaveChanges();
             });
-            ShowOwnersCommand.Execute(_);
+            ShowAllCommand.Execute(_);
         });
 
         public ICommand ShowOwnersCommand => new Command(_ =>
@@ -139,10 +146,10 @@ namespace ParkingLot.ViewModels
         {
             ExecuteIgnoringExceptions(() =>
             {
-                _context.Cars.Add(new Car(CarRegistrationNumber, CarOwnerId, CarVehicleBrand, CarColor));
+                _context.Cars.Add(new Car(CarRegistrationNumber, SelectedOwner.Id, CarVehicleBrand, CarColor));
                 _context.SaveChanges();
             });
-            ShowCarsCommand.Execute(_);
+            ShowAllCommand.Execute(_);
         });
 
         public ICommand ShowCarsCommand => new Command(_ =>

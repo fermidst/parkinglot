@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using ParkingLot.Context;
@@ -13,12 +14,13 @@ namespace ParkingLot.ViewModels
         private readonly AppDbContext _context = new AppDbContext();
         private long _userId;
         private string _registrationNumber = string.Empty;
-        private long _locationId;
-        private long _rateId;
+        private Location? _selectedLocation;
+        private Rate? _selectedRate;
         private decimal _price;
         private Ticket? _selectedTicket;
 
         public ObservableCollection<Ticket> Tickets { get; } = new ObservableCollection<Ticket>();
+        public ObservableCollection<Ticket> UnpaidTickets { get; } = new ObservableCollection<Ticket>();
 
         public ObservableCollection<Location> Locations { get; } = new ObservableCollection<Location>();
 
@@ -36,16 +38,16 @@ namespace ParkingLot.ViewModels
             set => Update(ref _registrationNumber, value);
         }
 
-        public long LocationId
+        public Location? SelectedLocation
         {
-            get => _locationId;
-            set => Update(ref _locationId, value);
+            get => _selectedLocation;
+            set => Update(ref _selectedLocation, value);
         }
 
-        public long RateId
+        public Rate? SelectedRate
         {
-            get => _rateId;
-            set => Update(ref _rateId, value);
+            get => _selectedRate;
+            set => Update(ref _selectedRate, value);
         }
 
         public decimal Price
@@ -62,24 +64,22 @@ namespace ParkingLot.ViewModels
 
         public ICommand AddTicketCommand => new Command(_ =>
         {
-            _context.Tickets.Add(new Ticket(RegistrationNumber, LocationId, RateId));
+            Debug.Assert(SelectedLocation != null, nameof(SelectedLocation) + " != null");
+            Debug.Assert(SelectedRate != null, nameof(SelectedRate) + " != null");
+            _context.Tickets.Add(new Ticket(RegistrationNumber, SelectedLocation.Id, SelectedRate.Id));
             _context.SaveChanges();
+            UpdateAllCommand.Execute(_);
         });
 
         public ICommand PayTicketCommand => new Command(_ =>
         {
-            //var tickets = _context.Tickets.Where(t => t.RegistrationNumber == RegistrationNumber && t.DepartureDate == default);
-            //Tickets.Clear();
-            //foreach (var ticket in tickets)
-            //{
-            //    Tickets.Add(ticket);
-            //}
             if (SelectedTicket == null) return;
             SelectedTicket.DepartureDate = DateTime.Now;
             Price = (decimal) (SelectedTicket.DepartureDate - SelectedTicket.ArrivalDate).TotalHours *
                     SelectedTicket.Rate.Cost;
             _context.Tickets.Update(SelectedTicket);
             _context.SaveChanges();
+            UpdateAllCommand.Execute(_);
         });
 
         public ICommand ShowUserTicketHistory => new Command(_ =>
@@ -89,6 +89,13 @@ namespace ParkingLot.ViewModels
             foreach (var ticket in tickets)
             {
                 Tickets.Add(ticket);
+            }
+
+            var unpaidTickets = _context.Tickets.Where(t => t.RegistrationNumber == RegistrationNumber && t.DepartureDate == default);
+            UnpaidTickets.Clear();
+            foreach (var ticket in unpaidTickets)
+            {
+                UnpaidTickets.Add(ticket);
             }
         });
 
@@ -110,6 +117,13 @@ namespace ParkingLot.ViewModels
             {
                 Rates.Add(rate);
             }
+        });
+
+        public ICommand UpdateAllCommand => new Command(_ =>
+        {
+            ShowUserTicketHistory.Execute(_);
+            ShowLocationsCommand.Execute(_);
+            ShowRatesCommand.Execute(_);
         });
     }
 }

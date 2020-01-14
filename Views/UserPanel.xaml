@@ -27,7 +27,7 @@
         </DataGrid>
         <Label Content="Места" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="67" Margin="13,25,0,0"/>
         <Label Content="Тарифы" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="58" Margin="155,25,0,0"/>
-        <ComboBox HorizontalAlignment="Left" Height="23" Margin="736,276,0,0" VerticalAlignment="Top" Width="186" ItemsSource="{Binding Tickets, IsAsync=True}" SelectedItem="{Binding SelectedTicket}"/>
+        <ComboBox HorizontalAlignment="Left" Height="23" Margin="736,276,0,0" VerticalAlignment="Top" Width="186" ItemsSource="{Binding UnpaidTickets}" DisplayMemberPath="Id" SelectedItem="{Binding SelectedTicket}"/>
         <Label Content="Выберите чек для оплаты:" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="162" Margin="748,247,0,0"/>
         <DataGrid Margin="364,54,19,217" ItemsSource="{Binding Tickets}"
             AutoGenerateColumns="False">
@@ -41,18 +41,16 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Чеки" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="58" Margin="364,25,0,0"/>
-        <Button Content="Обновить" HorizontalAlignment="Center" Height="24" Margin="0,25,0,0" VerticalAlignment="Top" Width="130" Command="{Binding ShowUserTicketHistory}"/>
         <Button Content="Показать цену" HorizontalAlignment="Left" Height="24" Margin="764,319,0,0" VerticalAlignment="Top" Width="130" Command="{Binding PayTicketCommand}"/>
-        <Button Content="Обновить" HorizontalAlignment="Left" Height="24" Margin="71,25,0,0" VerticalAlignment="Top" Width="59" Command="{Binding ShowLocationsCommand}"/>
-        <Button Content="Обновить" HorizontalAlignment="Left" Height="24" Margin="239,26,0,0" VerticalAlignment="Top" Width="62" Command="{Binding ShowRatesCommand}"/>
-        <Label Content="Регистрационный номер для поиска чеков: " HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="271" Margin="30,247,0,0"/>
+        <Button Content="Обновить" HorizontalAlignment="Left" Height="24" Margin="198,276,0,0" VerticalAlignment="Top" Width="59" Command="{Binding UpdateAllCommand}"/>
+        <Label Content="Регистрационный номер:" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="154" Margin="30,247,0,0"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="32,276,0,0" Text="{Binding RegistrationNumber}" TextWrapping="Wrap" VerticalAlignment="Top" Width="136"/>
-        <Label Content="Выберите айди места из списка выше:" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="197" Margin="364,247,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="364,276,0,0" Text="{Binding LocationId}" TextWrapping="Wrap" VerticalAlignment="Top" Width="136"/>
-        <Label Content="Выберите айди тарифа из списка выше:" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="197" Margin="364,313,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="364,342,0,0" Text="{Binding RateId}" TextWrapping="Wrap" VerticalAlignment="Top" Width="136"/>
-        <Button Content="Выписать чек" HorizontalAlignment="Left" Height="24" Margin="364,383,0,0" VerticalAlignment="Top" Width="130" Command="{Binding AddTicketCommand}"/>
+        <Label Content="Выберите айди места из списка выше:" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="239" Margin="364,247,0,0"/>
+        <Label Content="Выберите айди тарифа из списка выше:" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="239" Margin="364,313,0,0"/>
+        <Button Content="Выписать чек" HorizontalAlignment="Left" Height="24" Margin="373,386,0,0" VerticalAlignment="Top" Width="130" Command="{Binding AddTicketCommand}"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="761,354,0,0" Text="{Binding Price}" TextWrapping="Wrap" VerticalAlignment="Top" Width="136"/>
+        <ComboBox HorizontalAlignment="Left" Height="23" Margin="373,276,0,0" VerticalAlignment="Top" Width="177" ItemsSource="{Binding Locations}" DisplayMemberPath="Id" SelectedItem="{Binding SelectedLocation}"/>
+        <ComboBox HorizontalAlignment="Left" Height="23" Margin="373,342,0,0" VerticalAlignment="Top" Width="177" ItemsSource="{Binding Rates}" DisplayMemberPath="Type" SelectedItem="{Binding SelectedRate}"/>
 
     </Grid>
 </Window>
